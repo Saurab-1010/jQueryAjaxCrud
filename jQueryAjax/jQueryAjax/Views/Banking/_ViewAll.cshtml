@@ -1,0 +1,54 @@
+﻿
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model IEnumerable<BankingModel>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AccountNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BeneficiaryName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedDate)
+            </th>
+            <th>
+                <a onclick="showInPopup('@Url.Action("AddOrEdit","Banking", null, Context.Request.Scheme)','New Banking')" class="btn btn-success text-white"><i class="fas fa-random"></i> New Account</a>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AccountNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BeneficiaryName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedDate)
+            </td>
+            <td>
+                <div>
+                <a onclick="showInPopup('@Url.Action("AddOrEdit", "Banking", new {id=item.BankId}, Context.Request.Scheme)','Update Transaction')" class="btn btn-info text-white"><i class="fas fa-pencil-alt"></i> Edit</a>
+                <form asp-action="Delete" asp-route-id="@item.BankId" onsubmit="return jQueryAjaxDelete(this)" class="d-inline">
+                    <input type="submit" value="Delete" class="btn btn-danger" />
+                </form> 
+               </div>
+               
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
